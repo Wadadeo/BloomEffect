@@ -78,6 +78,7 @@ void BloomEffect::apply(GLuint screenVAO)
 		glActiveTexture(GL_TEXTURE0);
 		_hdr->uniform("screenTexture", (GLuint)0);
 		glBindTexture(GL_TEXTURE_2D, colorBuffers[1]);
+		_hdr->uniform("exposure", exposure);
 		glBindVertexArray(screenVAO);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
@@ -112,6 +113,7 @@ void BloomEffect::apply(GLuint screenVAO)
 		glActiveTexture(GL_TEXTURE0);
 		_hdr->uniform("screenTexture", (GLuint)0);
 		glBindTexture(GL_TEXTURE_2D, blurColorbuffers[!horizontal]);
+		_hdr->uniform("exposure", exposure);
 		glBindVertexArray(screenVAO);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
