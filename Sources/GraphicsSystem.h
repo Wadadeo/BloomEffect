@@ -5,7 +5,6 @@
 #include "LightComponent.h"
 #include "AssetCatalogue.h"
 #include "Camera.h"
-#include "SkyboxRenderer.h"
 #include "LightSystem.h"
 #include "BloomEffect.h"
 
@@ -22,7 +21,6 @@ class GraphicsSystem
 	AssetCatalogue* _assets;	
 
 	Camera			camera;
-	SkyboxRenderer	_skyboxRenderer;
 	BloomEffect		_bloom;
 	vec3			clearColor;
 	GLenum			drawMode;
@@ -53,7 +51,6 @@ public:
 
 	Shader* effect();
 	float* getClearColor();
-	SkyboxRenderer& skyboxRenderer();
 	LightSystem& lightSystem();
 	BloomEffect& bloomEffect();
 

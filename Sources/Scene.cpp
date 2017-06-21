@@ -14,8 +14,14 @@ const vector<TransformComponent*>& Scene::hierarchy()
 
 void Scene::load()
 {
+	
 	//Tron character
 	Model* tronModel = _assets->addModel(MESH_FOLDER("Light Cycle/HQ_Movie cycle.obj"));
+	if (!tronModel)
+	{
+		cerr << "ERROR : Could't load Scene, have you initialized project properly?" << endl;
+		return;
+	}
 	GameObject* tron = new GameObject(tronModel);
 	tron->transform->Rotate({ -90, 0, 0 });
 	_hierarchy.push_back(tron->transform);

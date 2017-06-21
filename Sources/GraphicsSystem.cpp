@@ -33,7 +33,6 @@ void GraphicsSystem::init(int screenWidth, int screenHeight, AssetCatalogue* ass
 	_effect = _assets->shader("screen");
 	assert(_effect != nullptr);
 
-	_skyboxRenderer = SkyboxRenderer(_assets->defaultSkyBox(), _assets->shader("skybox"));
 	_lightSystem.init(_assets->shader("singleColor"));
 
 	_bloom.init(screenWidth, screenHeight, _assets->shader("bloom"), _assets->shader("blur"), _assets->shader("hdr"));
@@ -62,13 +61,11 @@ void GraphicsSystem::update(float deltaTime)
 	
 	// 1 - Render the scene in a frameBuffer
 	glPolygonMode(GL_FRONT_AND_BACK, drawMode);
-	glBindFramebuffer(GL_FRAMEBUFFER, _bloom.frameBuffer()); //use bloom framebuffer      
+	glBindFramebuffer(GL_FRAMEBUFFER, _bloom.frameBuffer()); //use bloom framebuffer (HDR)     
 		glClearColor(clearColor.x, clearColor.g, clearColor.b, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // if using stencil, remember to add it here
 		glEnable(GL_DEPTH_TEST);
 
-		if (_skyboxRenderer.enabled)
-			_skyboxRenderer.draw(camera);
 		_lightSystem.update(camera);
 		for (auto it = _toRender.begin(); it != _toRender.end(); it++)
 			(*it)->draw(camera);
@@ -78,28 +75,12 @@ void GraphicsSystem::update(float deltaTime)
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-		glClearColor(1.0f, 1.0f, 1.0f, 1.0f); //not necessary, quad is "fullscreen"
-		glClear(GL_COLOR_BUFFER_BIT);
-		glDisable(GL_DEPTH_TEST);
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f); //not necessary, quad is "fullscreen"
+	glClear(GL_COLOR_BUFFER_BIT);
+	glDisable(GL_DEPTH_TEST);
 
-		// Draw Screen texture (quad)
-
-		_bloom.apply(screenVAO);
-
-		/*_effect->use();
-
-		if (useHDR)
-		{
-			//_effect->uniform("gamma", 2.2f);
-			_effect->uniform("exposure", exposure);
-		}
-
-		glActiveTexture(GL_TEXTURE0);
-		glBindVertexArray(screenVAO);
-		glBindTexture(GL_TEXTURE_2D, colorBuffers[1]);	// Use the color attachment texture as the texture of the quad plane
-		glDrawArrays(GL_TRIANGLES, 0, 6);
-		glBindVertexArray(0);*/
-
+	// Draw Screen texture (quad)
+	_bloom.apply(screenVAO);
 }
 
 void GraphicsSystem::useEffect(const std::string & effectName)
@@ -153,7 +134,6 @@ void GraphicsSystem::resize(int w, int h)
 Shader * GraphicsSystem::effect() { return _effect; }
 
 float* GraphicsSystem::getClearColor() { return glm::value_ptr(clearColor); }
-SkyboxRenderer & GraphicsSystem::skyboxRenderer() { return _skyboxRenderer; }
 LightSystem & GraphicsSystem::lightSystem() { return _lightSystem; }
 
 BloomEffect & GraphicsSystem::bloomEffect()

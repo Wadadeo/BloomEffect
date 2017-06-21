@@ -25,16 +25,6 @@ void AssetCatalogue::initEngineAssets()
 	addShader("sepiaFilter",	SHADER_FOLDER("ScreenVertShader.glsl"),		SHADER_FOLDER("SepiaFilterFragShader.glsl"));
 	addShader("skybox",			SHADER_FOLDER("CubeMapVertShader.glsl"),	SHADER_FOLDER("CubeMapFragShader.glsl"));
 	addShader("singleColor",	SHADER_FOLDER("SimpleVertShader.glsl"),		SHADER_FOLDER("SingleColorFragShader.glsl"));
-	
-	vector<string> skyboxFaces = {
-		TEXTURE_FOLDER("Skybox1/SunSet/SunSetRight2048.png"),
-		TEXTURE_FOLDER("Skybox1/SunSet/SunSetLeft2048.png"),
-		TEXTURE_FOLDER("Skybox1/SunSet/SunSetUp2048.png"),
-		TEXTURE_FOLDER("Skybox1/SunSet/SunSetDown2048.png"),
-		TEXTURE_FOLDER("Skybox1/SunSet/SunSetBack2048.png"),
-		TEXTURE_FOLDER("Skybox1/SunSet/SunSetFront2048.png"),
-	};
-	addCubeMap("defaultSkybox", skyboxFaces);
 
 	addMaterial("default"); //default material
 
@@ -122,7 +112,7 @@ Model* AssetCatalogue::addModel(const string& path)
 	newModel->path = path;
 	_models.push_back(newModel);
 
-	cout << "= Load Model [" << path << "]" << endl;
+	cout << "Load Model [" << path << "]" << endl;
 
 	return _models.back();
 }
