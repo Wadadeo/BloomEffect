@@ -21,17 +21,17 @@
 
 #include "IDrawer.h"
 #include "Viewer.h"
-
+#include "GraphicsSystem.h"
+#include "AssetCatalogue.h"
+#include "Scene.h"
 
 class MainWindow : public Fl_Gl_Window, public IDrawer
 {
 private:
-	//static AssetCatalogue * assets;
-
-
-	//Scene*	_scene;
-	Viewer*	_viewer;
-	//GraphicsSystem *	_graphics;
+	Viewer*			_viewer;
+	Scene*			scene;
+	AssetCatalogue	_assets;
+	GraphicsSystem	_graphics;
 
 	bool contextInitialized;
 
@@ -47,7 +47,7 @@ public:
 	void initOpenGlContext();
 	//void setScene(Scene *scene);
 
-	//GraphicsSystem * graphicSystem();
+	GraphicsSystem * graphicSystem();
 
 protected:
 	void draw();

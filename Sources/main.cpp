@@ -1,45 +1,72 @@
 #include "MainWindow.h"
 
+
+struct BloomDebugInfo
+{
+	MainWindow*		window;
+	BloomEffect*	bloom;
+	eBloomDebug		toApply;
+};
+
+void debugBloom(Fl_Widget *widget, void* data)
+{
+	BloomDebugInfo* info = (BloomDebugInfo*)data;
+	info->bloom->debug = info->toApply;
+	info->window->redraw();
+}
+
+
 int main(int ac, char **av)
 {
 	int width = 1360;
 	int height = 768;
-	Fl::scheme("plastic");// plastic
-
+	Fl::scheme("plastic");
 
 	int tabsWidth = 300;
 	Fl_Double_Window* wind = new Fl_Double_Window(100, 100, width, height, "Bloom Effect Demo");
 
 	wind->begin();
 
-	//menu
-	//MainMenu* menu = new MainMenu(0, 0, width - tabsWidth, 30, &assets);
 
-	//opengl Window
-	MainWindow* gl = new MainWindow(0, 30, width - tabsWidth, height - 30/*, &graphics*/);
+	MainWindow* gl = new MainWindow(0, 30, width, height - 30);
 	wind->resizable(gl);
 
-	//menu->drawer(gl);
+	int buttonW = width / 4;
 
-	//side "properties" tabs
-	//Fl_Tabs* tabs = new Fl_Tabs(width - tabsWidth, 0, tabsWidth, height);
+	BloomEffect *bloom = &(gl->graphicSystem()->bloomEffect());
 
-	//LightingWindow* lightingEditor = new LightingWindow(tabs->x(), 30, tabs->w(), tabs->h() - 10);
+	Fl_Button* complete = new Fl_Button(0, 0, buttonW, 30, "Scene with Bloom Effect");
+	BloomDebugInfo completeInfo;
+	completeInfo.window = gl;
+	completeInfo.bloom = bloom;
+	completeInfo.toApply = COMPLETE;
+	complete->callback(debugBloom, &completeInfo);
 
-	/*GameObjectEditor* GoEditor = new GameObjectEditor(tabs->x(), 30, tabs->w(), tabs->h() - 10, gl);
-	tabs->add(GoEditor);
-	tabs->add(lightingEditor);*/
+	Fl_Button* normal = new Fl_Button(buttonW, 0, buttonW, 30, "Scene witout Bloom Effect");
+	BloomDebugInfo normalInfo;
+	normalInfo.window = gl;
+	normalInfo.bloom = bloom;
+	normalInfo.toApply = SCENE;
+	normal->callback(debugBloom, &normalInfo);
+
+	Fl_Button* bright = new Fl_Button(buttonW * 2, 0, buttonW, 30, "Scene bright areas");
+	BloomDebugInfo brightInfo;
+	brightInfo.window = gl;
+	brightInfo.bloom = bloom;
+	brightInfo.toApply = BRIGHT_ONLY;
+	bright->callback(debugBloom, &brightInfo);
+
+	Fl_Button* blurred = new Fl_Button(buttonW * 3, 0, buttonW, 30, "Blurred bright areas");
+	BloomDebugInfo blurredInfo;
+	blurredInfo.window = gl;
+	blurredInfo.bloom = bloom;
+	blurredInfo.toApply = BLURRED_BRIGHT;
+	blurred->callback(debugBloom, &blurredInfo);
 
 	wind->end();
-
-	//Scene scene(&assets);
-
-
-	//scene.linkToUIComponent(GoEditor);
-	//gl->setScene(&scene);
-	//scene.setupIdle(gl);
 	wind->show();
 	Fl::run();
+
 	delete wind;
 	return 0;
 }

@@ -11,7 +11,7 @@ static float DEFAULT_ROTATE_SPEED = 2.0;
 
 using namespace std;
 
-Viewer Viewer::main(glm::vec3(10, 10, 10), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0), 45.0f, (16 / (float)9));
+Viewer Viewer::main(glm::vec3(5, 5, 5), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0), 45.0f, (16 / (float)9));
 
 Viewer::Viewer(
 	const glm::vec3 &viewPoint, 

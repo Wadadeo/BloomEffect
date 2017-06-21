@@ -1,11 +1,14 @@
 #include "MainWindow.h"
 #include <windows.h>
 
-MainWindow::MainWindow(int x, int y, int w, int h/*, GraphicsSystem *graphics*/)
-	: Fl_Gl_Window(x, y, w, h)/*, _graphics(graphics)*/
+MainWindow::MainWindow(int x, int y, int w, int h)
+	: Fl_Gl_Window(x, y, w, h)
 {
 	mode(FL_RGB | FL_ALPHA | FL_DOUBLE | FL_DEPTH | FL_STENCIL);
 	contextInitialized = false;
+	scene = new Scene(&_assets);
+	_viewer = &(Viewer::main);
+	_viewer->setAspectRatio(1.0f * (w / (float)h));
 }
 
 MainWindow::~MainWindow()
@@ -31,23 +34,23 @@ void MainWindow::initOpenGlContext()
 	_scene = scene;
 	_viewer = &(Viewer::main);
 	_viewer->setAspectRatio(1.0f * (w() / (float)h()));
-}
+}*/
 
 GraphicsSystem * MainWindow::graphicSystem()
 {
-	return _graphics;
-}*/
+	return &_graphics;
+}
 
 void MainWindow::draw()
 {	
 	if (!contextInitialized) {
-		initOpenGlContext();
-		//if (_scene) _scene->initDefaultHierarchy();
-		//_graphics->resize(w(), h());
-		//_graphics->init();
+		initOpenGlContext(); //PAIN IN MY ASS : with FLTK, opengl context must be initialized here
+		_assets.initEngineAssets();
+		_graphics.init(w(), h(), &_assets);
+		scene->load();
 	}
 
-	//_graphics->update();
+	_graphics.update(0);
 }
 
 void MainWindow::resize(int x, int y, int w, int h)

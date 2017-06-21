@@ -149,13 +149,59 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\AssetCatalogue.cpp" />
+    <ClCompile Include="Sources\BloomEffect.cpp" />
+    <ClCompile Include="Sources\Camera.cpp" />
+    <ClCompile Include="Sources\CatalogueUtils.cpp" />
+    <ClCompile Include="Sources\Component.cpp" />
+    <ClCompile Include="Sources\Cubemap.cpp" />
+    <ClCompile Include="Sources\GameObject.cpp" />
+    <ClCompile Include="Sources\GraphicsSystem.cpp" />
+    <ClCompile Include="Sources\LightComponent.cpp" />
+    <ClCompile Include="Sources\LightSystem.cpp" />
     <ClCompile Include="Sources\main.cpp" />
     <ClCompile Include="Sources\MainWindow.cpp" />
+    <ClCompile Include="Sources\Material.cpp" />
+    <ClCompile Include="Sources\MeshComponent.cpp" />
+    <ClCompile Include="Sources\ModelLoading.cpp" />
+    <ClCompile Include="Sources\Primitive.cpp" />
+    <ClCompile Include="Sources\RendererComponent.cpp" />
+    <ClCompile Include="Sources\Scene.cpp" />
+    <ClCompile Include="Sources\Shader.cpp" />
+    <ClCompile Include="Sources\ShaderLoading.cpp" />
+    <ClCompile Include="Sources\SkyboxRenderer.cpp" />
+    <ClCompile Include="Sources\TextureLoading.cpp" />
+    <ClCompile Include="Sources\TransformComponent.cpp" />
     <ClCompile Include="Sources\Viewer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sources\AssetCatalogue.h" />
+    <ClInclude Include="Sources\BloomEffect.h" />
+    <ClInclude Include="Sources\Camera.h" />
+    <ClInclude Include="Sources\CatalogueUtils.h" />
+    <ClInclude Include="Sources\Component.h" />
+    <ClInclude Include="Sources\Cubemap.hpp" />
+    <ClInclude Include="Sources\GameObject.h" />
+    <ClInclude Include="Sources\GraphicsSystem.h" />
     <ClInclude Include="Sources\IDrawer.h" />
+    <ClInclude Include="Sources\LightComponent.h" />
+    <ClInclude Include="Sources\LightSystem.h" />
     <ClInclude Include="Sources\MainWindow.h" />
+    <ClInclude Include="Sources\Material.h" />
+    <ClInclude Include="Sources\Mesh.hpp" />
+    <ClInclude Include="Sources\MeshComponent.h" />
+    <ClInclude Include="Sources\Model.hpp" />
+    <ClInclude Include="Sources\ModelLoading.h" />
+    <ClInclude Include="Sources\Primitive.h" />
+    <ClInclude Include="Sources\RendererComponent.h" />
+    <ClInclude Include="Sources\Scene.h" />
+    <ClInclude Include="Sources\Shader.h" />
+    <ClInclude Include="Sources\ShaderLoading.h" />
+    <ClInclude Include="Sources\SkyboxRenderer.h" />
+    <ClInclude Include="Sources\Texture.hpp" />
+    <ClInclude Include="Sources\TextureLoading.h" />
+    <ClInclude Include="Sources\TransformComponent.h" />
+    <ClInclude Include="Sources\Vertex.hpp" />
     <ClInclude Include="Sources\Viewer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
